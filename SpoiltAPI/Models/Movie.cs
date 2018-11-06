@@ -12,12 +12,13 @@ namespace SpoiltAPI.Models
     public class Movie
     {
         [Key]
-        public string IMDBID { get; set; }
+        public int ID { get; set; }
         public string Title { get; set; }
         public int Year { get; set; }
         public string Genre { get; set; }
         public string Plot { get; set; }
         public string Poster { get; set; }
+        public string IMDBID { get; set; }
 
         [JsonIgnore]
         public virtual ICollection<Spoiler> Spoilers { get; set; }

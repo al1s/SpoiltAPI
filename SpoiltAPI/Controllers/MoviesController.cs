@@ -34,7 +34,7 @@ namespace SpoiltAPI.Controllers
 
         // GET: api/Movies/5
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetMovie([FromRoute] int id)
+        public async Task<IActionResult> GetMovie([FromRoute] string id)
         {
             if (!ModelState.IsValid)
             {
@@ -44,7 +44,7 @@ namespace SpoiltAPI.Controllers
             var movie = await _context.Movies
                 //.Include(c => c.Spoilers)
                 
-                .FirstOrDefaultAsync(m => m.ID == id);
+                .FirstOrDefaultAsync(m => m.IMDBID == id);
 
             if (movie == null)
             {
@@ -52,7 +52,7 @@ namespace SpoiltAPI.Controllers
             }
 
 
-            movie.Spoilers = await _context.Spoilers.Where(x => x.MovieID == id).ToListAsync();
+            movie.Spoilers = await _context.Spoilers.Where(x => x.MovieID == movie.ID).ToListAsync();
 
 
             return Ok(movie);
@@ -66,14 +66,14 @@ namespace SpoiltAPI.Controllers
 
         // PUT: api/Movies/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutMovie([FromRoute] int id, [FromBody] Movie movie)
+        public async Task<IActionResult> PutMovie([FromRoute] string id, [FromBody] Movie movie)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != movie.ID)
+            if (id != movie.IMDBID)
             {
                 return BadRequest();
             }
@@ -135,9 +135,9 @@ namespace SpoiltAPI.Controllers
             return Ok(movie);
         }
 
-        private bool MovieExists(int id)
+        private bool MovieExists(string id)
         {
-            return _context.Movies.Any(e => e.ID == id);
+            return _context.Movies.Any(e => e.IMDBID == id);
         }
     }
 }
