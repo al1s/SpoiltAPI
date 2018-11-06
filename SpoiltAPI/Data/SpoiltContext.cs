@@ -19,6 +19,10 @@ namespace SpoiltAPI.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Spoiler>()
+            .Property(b => b.Created)
+            .HasDefaultValueSql("getdate()");
+
             modelBuilder.Entity<Movie>().HasData(
                 new Movie
                 {
