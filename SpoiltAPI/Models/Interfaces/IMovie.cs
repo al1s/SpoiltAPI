@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SpoiltAPI.Models.Interfaces
 {
-    interface IMovie
+    public interface IMovie
     {
         Task<OMDBSearchResponse> SearchMovie(string term);
     }

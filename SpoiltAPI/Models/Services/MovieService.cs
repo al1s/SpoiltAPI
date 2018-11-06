@@ -18,7 +18,7 @@ namespace SpoiltAPI.Models.Services
                 try
                 {
                     client.BaseAddress = new Uri("http://www.omdbapi.com/");
-                    var response = await client.GetAsync($"?={term}&apikey=9a268985");
+                    var response = await client.GetAsync($"?s={term}&apikey=9a268985");
                     response.EnsureSuccessStatusCode();
                     var stringResult = await response.Content.ReadAsStringAsync();
                     var rawMovies = JsonConvert.DeserializeObject<OMDBSearchResponse>(stringResult);

@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SpoiltAPI.Data;
 using SpoiltAPI.Models;
+using SpoiltAPI.Models.Interfaces;
+using SpoiltAPI.Models.ViewModels;
 
 namespace SpoiltAPI.Controllers
 {
@@ -15,10 +17,12 @@ namespace SpoiltAPI.Controllers
     public class MoviesController : ControllerBase
     {
         private readonly SpoiltContext _context;
+        private readonly IMovie _movieContext;
 
-        public MoviesController(SpoiltContext context)
+        public MoviesController(SpoiltContext context, IMovie movieContext)
         {
             _context = context;
+            _movieContext = movieContext;
         }
 
         // GET: api/Movies
@@ -52,6 +56,12 @@ namespace SpoiltAPI.Controllers
 
 
             return Ok(movie);
+        }
+
+        [HttpGet("search")]
+        public async Task<OMDBSearchResponse> SearchMovies(string term)
+        {
+            return await _movieContext.SearchMovie(term);
         }
 
         // PUT: api/Movies/5

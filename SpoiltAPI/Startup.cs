@@ -12,11 +12,15 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using SpoiltAPI.Data;
+using SpoiltAPI.Models.Interfaces;
+using SpoiltAPI.Models.Services;
 
 namespace SpoiltAPI
 {
     public class Startup
     {
+
+
         public Startup(IConfiguration configuration)
         {
             var builder = new ConfigurationBuilder().AddEnvironmentVariables();
@@ -35,6 +39,9 @@ namespace SpoiltAPI
                     options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
                 }
              );
+
+            services.AddTransient<IMovie, MovieService>();
+
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }

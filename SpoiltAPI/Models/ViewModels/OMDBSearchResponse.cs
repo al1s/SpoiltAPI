@@ -17,7 +17,7 @@ namespace SpoiltAPI.Models.ViewModels
         [JsonProperty("totalResults")]
         public int TotalResults { get; set; }
 
-        public string Rrror { get; set; }
+        public string Error { get; set; }
     }
 
     public class MovieSearchDescription
