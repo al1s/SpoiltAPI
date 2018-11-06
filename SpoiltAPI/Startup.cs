@@ -17,6 +17,8 @@ using SpoiltAPI.Models.Services;
 using NJsonSchema;
 using NSwag.AspNetCore;
 using System.Reflection;
+using Microsoft.AspNetCore.Mvc.Formatters.Json;
+using Newtonsoft.Json;
 
 namespace SpoiltAPI
 {
@@ -45,8 +47,12 @@ namespace SpoiltAPI
 
             services.AddTransient<IMovie, MovieService>();
 
+           
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1).AddJsonOptions(options => {
+                var settings = options.SerializerSettings;
+                settings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+            }); ;
 
 
             // Register the Swagger services

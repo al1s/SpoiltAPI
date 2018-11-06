@@ -20,7 +20,8 @@ namespace SpoiltAPI.Models
         public string Poster { get; set; }
         public string IMDBID { get; set; }
 
-        [JsonIgnore]
         public virtual ICollection<Spoiler> Spoilers { get; set; }
+
+
     }
 }

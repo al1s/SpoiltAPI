@@ -19,9 +19,11 @@ namespace SpoiltAPI.Models
         public int Votes { get; set; }
         [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
         public DateTime Created { get; set; }
+
+        [JsonProperty(Required = Required.Always)]
         public int MovieID { get; set; }
 
-        [JsonIgnore]
         public virtual Movie Movie { get; set; }
+
     }
 }

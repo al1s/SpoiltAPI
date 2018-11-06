@@ -25,7 +25,7 @@ namespace SpoiltAPI.Controllers
         [HttpGet]
         public IEnumerable<Spoiler> GetSpoilers()
         {
-            return _context.Spoilers;
+            return _context.Spoilers.Include(s => s.Movie);
         }
 
         // GET: api/Spoilers/5
@@ -37,7 +37,7 @@ namespace SpoiltAPI.Controllers
                 return BadRequest(ModelState);
             }
 
-            var spoiler = await _context.Spoilers.FindAsync(id);
+            var spoiler = await _context.Spoilers.Include(s => s.Movie).FirstOrDefaultAsync(s => s.ID == id);
 
             if (spoiler == null)
             {
