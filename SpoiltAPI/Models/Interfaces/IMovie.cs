@@ -7,5 +7,6 @@ namespace SpoiltAPI.Models.Interfaces
 {
     interface IMovie
     {
+        Task<Movie> SearchMovie(string term);
     }
 }
