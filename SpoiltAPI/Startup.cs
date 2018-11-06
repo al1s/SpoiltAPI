@@ -14,6 +14,9 @@ using Microsoft.Extensions.Options;
 using SpoiltAPI.Data;
 using SpoiltAPI.Models.Interfaces;
 using SpoiltAPI.Models.Services;
+using NJsonSchema;
+using NSwag.AspNetCore;
+using System.Reflection;
 
 namespace SpoiltAPI
 {
@@ -44,6 +47,10 @@ namespace SpoiltAPI
 
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
+
+            // Register the Swagger services
+            services.AddSwagger();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -57,6 +64,25 @@ namespace SpoiltAPI
             {
                 app.UseHsts();
             }
+
+            app.UseStaticFiles();
+
+            // Register the Swagger generator and the Swagger UI middlewares
+            app.UseSwaggerUi3WithApiExplorer(settings =>
+            {
+                settings.SwaggerUiRoute = "";
+                settings.GeneratorSettings.DefaultPropertyNameHandling =
+                    PropertyNameHandling.CamelCase;
+                settings.PostProcess = document =>
+                {
+                    document.Info.Version = "v1";
+                    document.Info.Title = "Spoilt API";
+                    document.Info.Description = "A simple api for Movie Spoilers.";
+                    document.Info.TermsOfService = "None";
+                    
+                };
+            });
+
 
             app.UseHttpsRedirection();
             app.UseMvc();
