@@ -9,5 +9,7 @@ namespace SpoiltAPI.Models.Interfaces
     public interface IMovie
     {
         Task<OMDBSearchResponse> SearchMovie(string term);
+
+        Task<MovieDescription> GetMovieExternal(string imdbId);
     }
 }
