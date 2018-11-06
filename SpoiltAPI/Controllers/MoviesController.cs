@@ -46,12 +46,23 @@ namespace SpoiltAPI.Controllers
                 
                 .FirstOrDefaultAsync(m => m.IMDBID == id);
 
+            // If movie isn't in our database, try to get it from external api
             if (movie == null)
             {
-                return NotFound();
+                MovieDescription mDescripton = await _movieContext.GetMovieExternal(id);
+
+                if(mDescripton == null) { 
+                    return NotFound();
+                }
+
+                 movie = new Movie {IMDBID = mDescripton.ImdbID, Title = mDescripton.Title, Genre = mDescripton.Genre, Plot = mDescripton.Plot, Year = int.Parse(mDescripton.Year), Poster = mDescripton.Poster};
+                _context.Movies.Add(movie);
+                await _context.SaveChangesAsync();
+
+                return Ok(movie);
             }
 
-
+          
             movie.Spoilers = await _context.Spoilers.Where(x => x.MovieID == movie.ID).ToListAsync();
 
 

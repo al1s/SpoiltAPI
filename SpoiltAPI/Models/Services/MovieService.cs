@@ -30,5 +30,25 @@ namespace SpoiltAPI.Models.Services
                 }
             }
         }
+
+        public async Task<MovieDescription> GetMovieExternal(string imdbId)
+        {
+            using (var client = new HttpClient())
+            {
+                try
+                {
+                    client.BaseAddress = new Uri("http://www.omdbapi.com/");
+                    var response = await client.GetAsync($"?i={imdbId}&apikey=9a268985");
+                    response.EnsureSuccessStatusCode();
+                    var stringResult = await response.Content.ReadAsStringAsync();
+                    var rawMovies = JsonConvert.DeserializeObject<MovieDescription>(stringResult);
+                    return rawMovies;
+                }
+                catch (HttpRequestException)
+                {
+                    return null;
+                }
+            }
+        }
     }
 }
