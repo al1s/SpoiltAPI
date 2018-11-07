@@ -17,6 +17,11 @@ namespace SpoiltAPI
             CreateWebHostBuilder(args).Build().Run();
         }
 
+        /// <summary>
+        /// Creates a WebHostBuilder
+        /// </summary>
+        /// <param name="args">Array of Arguments</param>
+        /// <returns>Returns the IWebHostBuilder Interface</returns>
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
                 .UseStartup<Startup>();

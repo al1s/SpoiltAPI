@@ -34,88 +34,30 @@ namespace SpoiltAPITests
             Assert.Equal("Spoilers!", spoiler.SpoilerText);
         }
 
-        /// <summary>
-        /// Tests that a Movie can be Created and Read
-        /// </summary>
-        [Fact]
-        public async void CanCreateAndReadMovie()
-        {
-            DbContextOptions<SpoiltContext> options =
-                new DbContextOptionsBuilder<SpoiltContext>()
-                .UseInMemoryDatabase("GetMovieName")
-                .Options;
+        ///// <summary>
+        ///// Tests that a Movie can be Created and Read
+        ///// </summary>
+        //[Fact]
+        //public async void CanCreateAndReadMovie()
+        //{
+        //    DbContextOptions<SpoiltContext> options =
+        //        new DbContextOptionsBuilder<SpoiltContext>()
+        //        .UseInMemoryDatabase("GetMovieName")
+        //        .Options;
 
-            using (SpoiltContext context = new SpoiltContext(options))
-            {
-                Movie movie = new Movie();
-                movie.Title = "Dune";
+        //    using (SpoiltContext context = new SpoiltContext(options))
+        //    {
+        //        Movie movie = new Movie();
+        //        movie.Title = "Dune";
 
-                context.Movies.Add(movie);
-                context.SaveChanges();
+        //        context.Movies.SearchMovies(movie);
+        //        context.SaveChanges();
 
-                var movieTitle = await context.Movies.FirstOrDefaultAsync(x => x.Title == movie.Title);
+        //        var movieTitle = await context.Movies.FirstOrDefaultAsync(x => x.Title == movie.Title);
 
-                Assert.Equal("Dune", movieTitle.Title);
-            }
-        }
-
-        /// <summary>
-        /// Tests that a Movie can be Updated
-        /// </summary>
-        [Fact]
-        public async void CanUpdateMovie()
-        {
-            DbContextOptions<SpoiltContext> options =
-                new DbContextOptionsBuilder<SpoiltContext>()
-                .UseInMemoryDatabase("GetMovieNameUpdate")
-                .Options;
-
-            using (SpoiltContext context = new SpoiltContext(options))
-            {
-                Movie movie = new Movie();
-                movie.Title = "Dune";
-
-                context.Movies.Add(movie);
-                context.SaveChanges();
-
-                movie.Title = "BladeRunner";
-
-                context.Movies.Update(movie);
-                context.SaveChanges();
-
-                var movieTitle = await context.Movies.FirstOrDefaultAsync(x => x.Title == movie.Title);
-
-                Assert.Equal("BladeRunner", movieTitle.Title);
-            }
-        }
-
-        /// <summary>
-        /// Tests that a Movie can be Deleted
-        /// </summary>
-        [Fact]
-        public async void CanDeleteMovie()
-        {
-            DbContextOptions<SpoiltContext> options =
-                new DbContextOptionsBuilder<SpoiltContext>()
-                .UseInMemoryDatabase("GetMovieNameDelete")
-                .Options;
-
-            using (SpoiltContext context = new SpoiltContext(options))
-            {
-                Movie movie = new Movie();
-                movie.Title = "Dune";
-
-                context.Movies.Add(movie);
-                context.SaveChanges();
-
-                context.Movies.Remove(movie);
-                context.SaveChanges();
-
-                var movieTitle = await context.Movies.ToListAsync();
-
-                Assert.DoesNotContain(movie, movieTitle);
-            }
-        }
+        //        Assert.Equal("Dune", movieTitle.Title);
+        //    }
+        //}
 
         /// <summary>
         /// Tests that a Spoiler can be Created and Read

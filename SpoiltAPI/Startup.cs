@@ -24,8 +24,6 @@ namespace SpoiltAPI
 {
     public class Startup
     {
-
-
         public Startup(IConfiguration configuration)
         {
             var builder = new ConfigurationBuilder().AddEnvironmentVariables();
@@ -35,10 +33,12 @@ namespace SpoiltAPI
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
+        /// <summary>
+        /// Adds services to runtime
+        /// </summary>
+        /// <param name="services">Services to be used</param>
         public void ConfigureServices(IServiceCollection services)
         {
-            // Add our DB Context
             services.AddDbContext<SpoiltContext>(options =>
                 {
                     options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
@@ -46,20 +46,20 @@ namespace SpoiltAPI
              );
 
             services.AddTransient<IMovie, MovieService>();
-
-           
-
+            
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1).AddJsonOptions(options => {
                 var settings = options.SerializerSettings;
                 settings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
             }); ;
 
-
-            // Register the Swagger services
             services.AddSwagger();
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        /// <summary>
+        /// Configures HTTP request pipeline
+        /// </summary>
+        /// <param name="app">Applications</param>
+        /// <param name="env">Environmental Variables</param>
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             if (env.IsDevelopment())
@@ -88,7 +88,6 @@ namespace SpoiltAPI
                     
                 };
             });
-
 
             app.UseHttpsRedirection();
             app.UseMvc();

@@ -29,7 +29,7 @@ namespace SpoiltAPI.Controllers
         /// <summary>
         /// Gets the movies.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Returns Movies</returns>
         [HttpGet]
         public IEnumerable<Movie> GetMovies()
         {
@@ -41,7 +41,7 @@ namespace SpoiltAPI.Controllers
         /// Gets the movie.
         /// </summary>
         /// <param name="imdbId">The imdb identifier.</param>
-        /// <returns></returns>
+        /// <returns>Returns OK</returns>
         [HttpGet("{imdbId}")]
         public async Task<IActionResult> GetMovie([FromRoute] string imdbId)
         {
@@ -58,7 +58,7 @@ namespace SpoiltAPI.Controllers
         /// Searches the movies.
         /// </summary>
         /// <param name="term">The term.</param>
-        /// <returns></returns>
+        /// <returns>Returns Search Response from OMDB API</returns>
         [HttpGet("search")]
         public async Task<OMDBSearchResponse> SearchMovies(string term)
         {
@@ -69,7 +69,7 @@ namespace SpoiltAPI.Controllers
         /// Movies the exists.
         /// </summary>
         /// <param name="id">The identifier.</param>
-        /// <returns></returns>
+        /// <returns>Returns true if Movie exists</returns>
         private bool MovieExists(string id)
         {
             return _context.Movies.Any(e => e.ID == id);

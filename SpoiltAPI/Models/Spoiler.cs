@@ -9,7 +9,6 @@ using System.Threading.Tasks;
 
 namespace SpoiltAPI.Models
 {
-    //[DataContract(IsReference = true)]
     public class Spoiler
     {
         [Key]
@@ -21,8 +20,6 @@ namespace SpoiltAPI.Models
 
         [JsonProperty(Required = Required.Always)]
         public string MovieID { get; set; }
-
         public virtual Movie Movie { get; set; }
-
     }
 }

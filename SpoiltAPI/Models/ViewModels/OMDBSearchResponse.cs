@@ -50,6 +50,5 @@ namespace SpoiltAPI.Models.ViewModels
         public string Poster { get; set; }
 
         public string Plot { get; set; }
-
     }
 }

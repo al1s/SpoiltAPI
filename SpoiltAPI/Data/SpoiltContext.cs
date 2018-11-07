@@ -9,14 +9,17 @@ namespace SpoiltAPI.Data
 {
     public class SpoiltContext : DbContext
     {
-        public SpoiltContext(DbContextOptions<SpoiltContext> options)
-          : base(options)
+        public SpoiltContext(DbContextOptions<SpoiltContext> options) : base(options)
         {
         }
 
         public DbSet<Movie> Movies { get; set; }
         public DbSet<Spoiler> Spoilers { get; set; }
 
+        /// <summary>
+        /// Creates seed values for the database
+        /// </summary>
+        /// <param name="modelBuilder">Takes in a ModelBuilder object</param>
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Spoiler>()
