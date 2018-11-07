@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SpoiltAPI.Data;
 using SpoiltAPI.Models;
+using SpoiltAPI.Models.Interfaces;
 
 namespace SpoiltAPI.Controllers
 {
@@ -15,10 +16,12 @@ namespace SpoiltAPI.Controllers
     public class SpoilersController : ControllerBase
     {
         private readonly SpoiltContext _context;
+        private readonly IMovie _movieContext;
 
-        public SpoilersController(SpoiltContext context)
+        public SpoilersController(SpoiltContext context, IMovie movieContext)
         {
             _context = context;
+            _movieContext = movieContext;
         }
 
         // GET: api/Spoilers
@@ -89,6 +92,12 @@ namespace SpoiltAPI.Controllers
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
+            }
+
+            var movie = await _movieContext.GetMovieOrCreate(spoiler.MovieID, false);
+            if (movie == null)
+            {
+                return BadRequest("Movie does not exist.");
             }
 
             _context.Spoilers.Add(spoiler);
