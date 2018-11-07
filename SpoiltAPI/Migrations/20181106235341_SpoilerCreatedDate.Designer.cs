@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SpoiltAPI.Data;
 
 namespace SpoiltAPI.Migrations
 {
     [DbContext(typeof(SpoiltContext))]
-    partial class SpoiltContextModelSnapshot : ModelSnapshot
+    [Migration("20181106235341_SpoilerCreatedDate")]
+    partial class SpoilerCreatedDate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

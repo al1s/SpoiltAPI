@@ -33,8 +33,8 @@ namespace SpoiltAPI.Controllers
         }
 
         // GET: api/Movies/5
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetMovie([FromRoute] string id)
+        [HttpGet("{imdbId}")]
+        public async Task<IActionResult> GetMovie([FromRoute] string imdbId)
         {
             if (!ModelState.IsValid)
             {
@@ -44,12 +44,12 @@ namespace SpoiltAPI.Controllers
             var movie = await _context.Movies
                 //.Include(c => c.Spoilers)
                 
-                .FirstOrDefaultAsync(m => m.IMDBID == id);
+                .FirstOrDefaultAsync(m => m.IMDBID == imdbId);
 
             // If movie isn't in our database, try to get it from external api
             if (movie == null)
             {
-                MovieDescription mDescripton = await _movieContext.GetMovieExternal(id);
+                MovieDescription mDescripton = await _movieContext.GetMovieExternal(imdbId);
 
                 if(mDescripton == null) { 
                     return NotFound();

@@ -17,7 +17,6 @@ namespace SpoiltAPI.Models
         public string UserName { get; set; }
         public string SpoilerText { get; set; }
         public int Votes { get; set; }
-        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
         public DateTime Created { get; set; }
 
         [JsonProperty(Required = Required.Always)]
@@ -25,5 +24,6 @@ namespace SpoiltAPI.Models
 
         public virtual Movie Movie { get; set; }
 
+      
     }
 }
