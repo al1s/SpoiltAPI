@@ -25,14 +25,23 @@ namespace SpoiltAPI.Controllers
             _movieContext = movieContext;
         }
 
-        // GET: api/Movies
+        // GET: api/Movies        
+        /// <summary>
+        /// Gets the movies.
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         public IEnumerable<Movie> GetMovies()
         {
             return _context.Movies;
         }
 
-        // GET: api/Movies/5
+        // GET: api/Movies/5        
+        /// <summary>
+        /// Gets the movie.
+        /// </summary>
+        /// <param name="imdbId">The imdb identifier.</param>
+        /// <returns></returns>
         [HttpGet("{imdbId}")]
         public async Task<IActionResult> GetMovie([FromRoute] string imdbId)
         {
@@ -41,114 +50,29 @@ namespace SpoiltAPI.Controllers
                 return BadRequest(ModelState);
             }
 
-            var movie = await _context.Movies
-                //.Include(c => c.Spoilers)
-                
-                .FirstOrDefaultAsync(m => m.IMDBID == imdbId);
-
-            // If movie isn't in our database, try to get it from external api
-            if (movie == null)
-            {
-                MovieDescription mDescripton = await _movieContext.GetMovieExternal(imdbId);
-
-                if(mDescripton == null) { 
-                    return NotFound();
-                }
-
-                 movie = new Movie {IMDBID = mDescripton.ImdbID, Title = mDescripton.Title, Genre = mDescripton.Genre, Plot = mDescripton.Plot, Year = int.Parse(mDescripton.Year), Poster = mDescripton.Poster};
-                _context.Movies.Add(movie);
-                await _context.SaveChangesAsync();
-
-                return Ok(movie);
-            }
-
-          
-            movie.Spoilers = await _context.Spoilers.Where(x => x.MovieID == movie.ID).ToListAsync();
-
-
+            var movie = await _movieContext.GetMovieOrCreate(imdbId, true);
             return Ok(movie);
         }
 
+        /// <summary>
+        /// Searches the movies.
+        /// </summary>
+        /// <param name="term">The term.</param>
+        /// <returns></returns>
         [HttpGet("search")]
         public async Task<OMDBSearchResponse> SearchMovies(string term)
         {
             return await _movieContext.SearchMovie(term);
         }
 
-        // PUT: api/Movies/5
-        //[HttpPut("{id}")]
-        //public async Task<IActionResult> PutMovie([FromRoute] string id, [FromBody] Movie movie)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return BadRequest(ModelState);
-        //    }
-
-        //    if (id != movie.IMDBID)
-        //    {
-        //        return BadRequest();
-        //    }
-
-        //    _context.Entry(movie).State = EntityState.Modified;
-
-        //    try
-        //    {
-        //        await _context.SaveChangesAsync();
-        //    }
-        //    catch (DbUpdateConcurrencyException)
-        //    {
-        //        if (!MovieExists(id))
-        //        {
-        //            return NotFound();
-        //        }
-        //        else
-        //        {
-        //            throw;
-        //        }
-        //    }
-
-        //    return NoContent();
-        //}
-
-        //// POST: api/Movies
-        //[HttpPost]
-        //public async Task<IActionResult> PostMovie([FromBody] Movie movie)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return BadRequest(ModelState);
-        //    }
-
-        //    _context.Movies.Add(movie);
-        //    await _context.SaveChangesAsync();
-
-        //    return CreatedAtAction("GetMovie", new { id = movie.ID }, movie);
-        //}
-
-        //// DELETE: api/Movies/5
-        //[HttpDelete("{id}")]
-        //public async Task<IActionResult> DeleteMovie([FromRoute] int id)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return BadRequest(ModelState);
-        //    }
-
-        //    var movie = await _context.Movies.FindAsync(id);
-        //    if (movie == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    _context.Movies.Remove(movie);
-        //    await _context.SaveChangesAsync();
-
-        //    return Ok(movie);
-        //}
-
+        /// <summary>
+        /// Movies the exists.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <returns></returns>
         private bool MovieExists(string id)
         {
-            return _context.Movies.Any(e => e.IMDBID == id);
+            return _context.Movies.Any(e => e.ID == id);
         }
     }
 }

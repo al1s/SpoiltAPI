@@ -20,10 +20,9 @@ namespace SpoiltAPI.Models
         public DateTime Created { get; set; }
 
         [JsonProperty(Required = Required.Always)]
-        public int MovieID { get; set; }
+        public string MovieID { get; set; }
 
         public virtual Movie Movie { get; set; }
 
-      
     }
 }

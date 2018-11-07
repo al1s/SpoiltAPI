@@ -26,13 +26,12 @@ namespace SpoiltAPI.Data
             modelBuilder.Entity<Movie>().HasData(
                 new Movie
                 {
-                    ID = 1,
                     Title = "The Sixth Sense",
                     Year = 1999,
                     Genre = "Drama, Thriller, Mystery",
                     Plot = "A boy who communicates with spirits seeks the help of a disheartened child psychologist.",
                     Poster = "https://m.media-amazon.com/images/M/MV5BMWM4NTFhYjctNzUyNi00NGMwLTk3NTYtMDIyNTZmMzRlYmQyXkEyXkFqcGdeQXVyMTAwMzUyOTc@._V1_SX300.jpg",
-                    IMDBID = "tt0167404",
+                    ID = "tt0167404",
                 });
             modelBuilder.Entity<Spoiler>().HasData(
                 new Spoiler
@@ -41,7 +40,7 @@ namespace SpoiltAPI.Data
                     UserName = "Stairmaster",
                     SpoilerText = "Bruce Willis was DEAD THE WHOLE TIME!!!!!",
                     Votes = -45,
-                    MovieID = 1,
+                    MovieID = "tt0167404",
                 });
         }
     }
