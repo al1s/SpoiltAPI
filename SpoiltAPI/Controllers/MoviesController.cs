@@ -16,9 +16,20 @@ namespace SpoiltAPI.Controllers
     [ApiController]
     public class MoviesController : ControllerBase
     {
+        /// <summary>
+        /// The context
+        /// </summary>
         private readonly SpoiltContext _context;
+        /// <summary>
+        /// The movie context
+        /// </summary>
         private readonly IMovie _movieContext;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MoviesController"/> class.
+        /// </summary>
+        /// <param name="context">The context.</param>
+        /// <param name="movieContext">The movie context.</param>
         public MoviesController(SpoiltContext context, IMovie movieContext)
         {
             _context = context;
@@ -59,6 +70,7 @@ namespace SpoiltAPI.Controllers
         /// </summary>
         /// <param name="term">The term.</param>
         /// <returns>Returns Search Response from OMDB API</returns>
+        [ResponseCache(Duration = 3000, VaryByQueryKeys = new string[] { "term" })]
         [HttpGet("search")]
         public async Task<OMDBSearchResponse> SearchMovies(string term)
         {

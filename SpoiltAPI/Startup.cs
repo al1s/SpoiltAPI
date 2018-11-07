@@ -46,7 +46,8 @@ namespace SpoiltAPI
              );
 
             services.AddTransient<IMovie, MovieService>();
-            
+            services.AddResponseCaching();
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1).AddJsonOptions(options => {
                 var settings = options.SerializerSettings;
                 settings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
@@ -89,6 +90,7 @@ namespace SpoiltAPI
                 };
             });
 
+            app.UseResponseCaching();
             app.UseHttpsRedirection();
             app.UseMvc();
         }
