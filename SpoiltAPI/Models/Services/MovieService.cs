@@ -13,7 +13,6 @@ namespace SpoiltAPI.Models.Services
 {
     public class MovieService : IMovie
     {
-
         private readonly SpoiltContext _context;
 
         public MovieService(SpoiltContext context)
@@ -21,6 +20,11 @@ namespace SpoiltAPI.Models.Services
             _context = context;
         }
 
+        /// <summary>
+        /// Searches for a Movie on the OMDB API
+        /// </summary>
+        /// <param name="term">User search parameters</param>
+        /// <returns>Returns OMDB Search Results</returns>
         public async Task<OMDBSearchResponse> SearchMovie(string term)
         {
             using (var client = new HttpClient())
@@ -41,6 +45,11 @@ namespace SpoiltAPI.Models.Services
             }
         }
 
+        /// <summary>
+        /// Gets a Movie from IMDB by IMDBID
+        /// </summary>
+        /// <param name="imdbId">IMDB ID</param>
+        /// <returns>Returns a Movie Description</returns>
         public async Task<MovieDescription> GetMovieExternal(string imdbId)
         {
             using (var client = new HttpClient())
@@ -61,6 +70,12 @@ namespace SpoiltAPI.Models.Services
             }
         }
 
+        /// <summary>
+        /// Attempts to Get Movie from Custom API Database; if not found, Creates Movie from OMDB
+        /// </summary>
+        /// <param name="imdbId">IMDBID</param>
+        /// <param name="loadSpoilers">Spoilers associated with Movie</param>
+        /// <returns>Returns a Movie</returns>
         public async Task<Movie> GetMovieOrCreate(string imdbId, bool loadSpoilers = false)
         {
             var movie = await _context.Movies.FirstOrDefaultAsync(m => m.ID == imdbId);
@@ -83,7 +98,6 @@ namespace SpoiltAPI.Models.Services
                 movie.Spoilers = await _context.Spoilers.Where(x => x.MovieID == movie.ID).ToListAsync();
             }
             return movie;
-
         }
     }
 }

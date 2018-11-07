@@ -25,6 +25,10 @@ namespace SpoiltAPI.Controllers
         }
 
         // GET: api/Spoilers
+        /// <summary>
+        /// Gets Spoilers
+        /// </summary>
+        /// <returns>Returns all Spoilers</returns>
         [HttpGet]
         public IEnumerable<Spoiler> GetSpoilers()
         {
@@ -32,6 +36,11 @@ namespace SpoiltAPI.Controllers
         }
 
         // GET: api/Spoilers/5
+        /// <summary>
+        /// Gets a Spoiler
+        /// </summary>
+        /// <param name="id">ID of a Spoiler</param>
+        /// <returns>Returns a specific Spoiler</returns>
         [HttpGet("{id}")]
         public async Task<IActionResult> GetSpoiler([FromRoute] int id)
         {
@@ -51,6 +60,12 @@ namespace SpoiltAPI.Controllers
         }
 
         // PUT: api/Spoilers/5
+        /// <summary>
+        /// Updates a Spoiler
+        /// </summary>
+        /// <param name="id">ID of a Spoiler</param>
+        /// <param name="spoiler">Spoiler information to be Updated</param>
+        /// <returns>Returns NoContent</returns>
         [HttpPut("{id}")]
         public async Task<IActionResult> PutSpoiler([FromRoute] int id, [FromBody] Spoiler spoiler)
         {
@@ -86,6 +101,11 @@ namespace SpoiltAPI.Controllers
         }
 
         // POST: api/Spoilers
+        /// <summary>
+        /// Create a Spoiler
+        /// </summary>
+        /// <param name="spoiler">Spoiler information</param>
+        /// <returns>Returns the Spoiler that was Created</returns>
         [HttpPost]
         public async Task<IActionResult> PostSpoiler([FromBody] Spoiler spoiler)
         {
@@ -107,6 +127,11 @@ namespace SpoiltAPI.Controllers
         }
 
         // DELETE: api/Spoilers/5
+        /// <summary>
+        /// Delete a Spoiler
+        /// </summary>
+        /// <param name="id">ID of a Spoiler</param>
+        /// <returns>Returns OK</returns>
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteSpoiler([FromRoute] int id)
         {
@@ -127,6 +152,11 @@ namespace SpoiltAPI.Controllers
             return Ok(spoiler);
         }
 
+        /// <summary>
+        /// Checks if a Spoiler exists
+        /// </summary>
+        /// <param name="id">ID of a Spoiler</param>
+        /// <returns>Returns true if a Spoiler exists and false if a Spoiler does not exist</returns>
         private bool SpoilerExists(int id)
         {
             return _context.Spoilers.Any(e => e.ID == id);

@@ -22,6 +22,5 @@ namespace SpoiltAPI.Models
         public string Poster { get; set; }
    
         public virtual ICollection<Spoiler> Spoilers { get; set; }
-
     }
 }
