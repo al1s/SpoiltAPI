@@ -44,7 +44,7 @@ namespace SpoiltAPI.Controllers
             var movie = await _context.Movies
                 //.Include(c => c.Spoilers)
                 
-                .FirstOrDefaultAsync(m => m.IMDBID == imdbId);
+                .FirstOrDefaultAsync(m => m.ID == imdbId);
 
             // If movie isn't in our database, try to get it from external api
             if (movie == null)
@@ -55,7 +55,7 @@ namespace SpoiltAPI.Controllers
                     return NotFound();
                 }
 
-                 movie = new Movie {IMDBID = mDescripton.ImdbID, Title = mDescripton.Title, Genre = mDescripton.Genre, Plot = mDescripton.Plot, Year = int.Parse(mDescripton.Year), Poster = mDescripton.Poster};
+                 movie = new Movie {ID = mDescripton.ImdbID, Title = mDescripton.Title, Genre = mDescripton.Genre, Plot = mDescripton.Plot, Year = int.Parse(mDescripton.Year), Poster = mDescripton.Poster};
                 _context.Movies.Add(movie);
                 await _context.SaveChangesAsync();
 
@@ -148,7 +148,7 @@ namespace SpoiltAPI.Controllers
 
         private bool MovieExists(string id)
         {
-            return _context.Movies.Any(e => e.IMDBID == id);
+            return _context.Movies.Any(e => e.ID == id);
         }
     }
 }

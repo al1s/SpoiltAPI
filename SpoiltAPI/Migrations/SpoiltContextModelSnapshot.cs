@@ -21,13 +21,9 @@ namespace SpoiltAPI.Migrations
 
             modelBuilder.Entity("SpoiltAPI.Models.Movie", b =>
                 {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                    b.Property<string>("ID");
 
                     b.Property<string>("Genre");
-
-                    b.Property<string>("IMDBID");
 
                     b.Property<string>("Plot");
 
@@ -42,7 +38,7 @@ namespace SpoiltAPI.Migrations
                     b.ToTable("Movies");
 
                     b.HasData(
-                        new { ID = 1, Genre = "Drama, Thriller, Mystery", IMDBID = "tt0167404", Plot = "A boy who communicates with spirits seeks the help of a disheartened child psychologist.", Poster = "https://m.media-amazon.com/images/M/MV5BMWM4NTFhYjctNzUyNi00NGMwLTk3NTYtMDIyNTZmMzRlYmQyXkEyXkFqcGdeQXVyMTAwMzUyOTc@._V1_SX300.jpg", Title = "The Sixth Sense", Year = 1999 }
+                        new { ID = "tt0167404", Genre = "Drama, Thriller, Mystery", Plot = "A boy who communicates with spirits seeks the help of a disheartened child psychologist.", Poster = "https://m.media-amazon.com/images/M/MV5BMWM4NTFhYjctNzUyNi00NGMwLTk3NTYtMDIyNTZmMzRlYmQyXkEyXkFqcGdeQXVyMTAwMzUyOTc@._V1_SX300.jpg", Title = "The Sixth Sense", Year = 1999 }
                     );
                 });
 
@@ -56,7 +52,7 @@ namespace SpoiltAPI.Migrations
                         .ValueGeneratedOnAdd()
                         .HasDefaultValueSql("getdate()");
 
-                    b.Property<int>("MovieID");
+                    b.Property<string>("MovieID");
 
                     b.Property<string>("SpoilerText");
 
@@ -71,7 +67,7 @@ namespace SpoiltAPI.Migrations
                     b.ToTable("Spoilers");
 
                     b.HasData(
-                        new { ID = 1, Created = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), MovieID = 1, SpoilerText = "Bruce Willis was DEAD THE WHOLE TIME!!!!!", UserName = "Stairmaster", Votes = -45 }
+                        new { ID = 1, Created = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), MovieID = "tt0167404", SpoilerText = "Bruce Willis was DEAD THE WHOLE TIME!!!!!", UserName = "Stairmaster", Votes = -45 }
                     );
                 });
 
@@ -79,8 +75,7 @@ namespace SpoiltAPI.Migrations
                 {
                     b.HasOne("SpoiltAPI.Models.Movie", "Movie")
                         .WithMany("Spoilers")
-                        .HasForeignKey("MovieID")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("MovieID");
                 });
 #pragma warning restore 612, 618
         }
