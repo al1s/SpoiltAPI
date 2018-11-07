@@ -13,8 +13,15 @@ namespace SpoiltAPI.Models.Services
 {
     public class MovieService : IMovie
     {
+        /// <summary>
+        /// The context
+        /// </summary>
         private readonly SpoiltContext _context;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MovieService"/> class.
+        /// </summary>
+        /// <param name="context">The context.</param>
         public MovieService(SpoiltContext context)
         {
             _context = context;
