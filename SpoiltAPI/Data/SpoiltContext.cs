@@ -9,11 +9,27 @@ namespace SpoiltAPI.Data
 {
     public class SpoiltContext : DbContext
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SpoiltContext"/> class.
+        /// </summary>
+        /// <param name="options">The options.</param>
         public SpoiltContext(DbContextOptions<SpoiltContext> options) : base(options)
         {
         }
 
+        /// <summary>
+        /// Gets or sets the movies.
+        /// </summary>
+        /// <value>
+        /// The movies.
+        /// </value>
         public DbSet<Movie> Movies { get; set; }
+        /// <summary>
+        /// Gets or sets the spoilers.
+        /// </summary>
+        /// <value>
+        /// The spoilers.
+        /// </value>
         public DbSet<Spoiler> Spoilers { get; set; }
 
         /// <summary>
@@ -22,10 +38,12 @@ namespace SpoiltAPI.Data
         /// <param name="modelBuilder">Takes in a ModelBuilder object</param>
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            // Auto populate date.
             modelBuilder.Entity<Spoiler>()
             .Property(b => b.Created)
             .HasDefaultValueSql("getdate()");
 
+            // Seed data.
             modelBuilder.Entity<Movie>().HasData(
                 new Movie
                 {
@@ -42,7 +60,6 @@ namespace SpoiltAPI.Data
                     ID = 1,
                     UserName = "Stairmaster",
                     SpoilerText = "Bruce Willis was DEAD THE WHOLE TIME!!!!!",
-                    Votes = -45,
                     MovieID = "tt0167404",
                 });
         }
