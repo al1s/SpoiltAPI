@@ -21,6 +21,7 @@ namespace SpoiltAPI.Models
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public string ID { get; set; }
+
         /// <summary>
         /// Gets or sets the title.
         /// </summary>
@@ -28,6 +29,7 @@ namespace SpoiltAPI.Models
         /// The title.
         /// </value>
         public string Title { get; set; }
+
         /// <summary>
         /// Gets or sets the year.
         /// </summary>
@@ -35,6 +37,7 @@ namespace SpoiltAPI.Models
         /// The year.
         /// </value>
         public int Year { get; set; }
+
         /// <summary>
         /// Gets or sets the genre.
         /// </summary>
@@ -42,6 +45,7 @@ namespace SpoiltAPI.Models
         /// The genre.
         /// </value>
         public string Genre { get; set; }
+
         /// <summary>
         /// Gets or sets the plot.
         /// </summary>
@@ -49,6 +53,7 @@ namespace SpoiltAPI.Models
         /// The plot.
         /// </value>
         public string Plot { get; set; }
+
         /// <summary>
         /// Gets or sets the poster.
         /// </summary>

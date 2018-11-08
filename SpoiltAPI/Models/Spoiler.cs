@@ -19,6 +19,7 @@ namespace SpoiltAPI.Models
         /// </value>
         [Key]
         public int ID { get; set; }
+
         /// <summary>
         /// Gets or sets the name of the user.
         /// </summary>
@@ -26,6 +27,7 @@ namespace SpoiltAPI.Models
         /// The name of the user.
         /// </value>
         public string UserName { get; set; }
+
         /// <summary>
         /// Gets or sets the spoiler text.
         /// </summary>
@@ -33,6 +35,7 @@ namespace SpoiltAPI.Models
         /// The spoiler text.
         /// </value>
         public string SpoilerText { get; set; }
+
         /// <summary>
         /// Gets or sets the created.
         /// </summary>
@@ -40,6 +43,7 @@ namespace SpoiltAPI.Models
         /// The created.
         /// </value>
         public DateTime Created { get; set; }
+
         /// <summary>
         /// Gets or sets the movie identifier.
         /// </summary>
@@ -48,6 +52,7 @@ namespace SpoiltAPI.Models
         /// </value>
         [JsonProperty(Required = Required.Always)]
         public string MovieID { get; set; }
+
         /// <summary>
         /// Gets or sets the movie.
         /// </summary>

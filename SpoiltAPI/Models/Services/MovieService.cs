@@ -28,6 +28,15 @@ namespace SpoiltAPI.Models.Services
         }
 
         /// <summary>
+        /// Retrieves the movies.
+        /// </summary>
+        /// <returns>Returns a list of Movies</returns>
+        public IEnumerable<Movie> RetrieveMovies()
+        {
+            return _context.Movies;
+        }
+
+        /// <summary>
         /// Searches for a Movie on the OMDB API
         /// </summary>
         /// <param name="term">User search parameters</param>
@@ -105,6 +114,16 @@ namespace SpoiltAPI.Models.Services
                 movie.Spoilers = await _context.Spoilers.Where(x => x.MovieID == movie.ID).ToListAsync();
             }
             return movie;
+        }
+
+        /// <summary>
+        /// Checks the movie exists.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <returns>Returns true if a Movie exists and false if a Movie does not exist</returns>
+        public bool CheckMovieExists(string id)
+        {
+            return _context.Movies.Any(e => e.ID == id);
         }
     }
 }

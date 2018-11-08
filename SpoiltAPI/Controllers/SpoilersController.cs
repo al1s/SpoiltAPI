@@ -15,13 +15,32 @@ namespace SpoiltAPI.Controllers
     [ApiController]
     public class SpoilersController : ControllerBase
     {
+        /// <summary>
+        /// The context
+        /// </summary>
         private readonly SpoiltContext _context;
+
+        /// <summary>
+        /// The movie context
+        /// </summary>
         private readonly IMovie _movieContext;
 
-        public SpoilersController(SpoiltContext context, IMovie movieContext)
+        /// <summary>
+        /// The spoiler context
+        /// </summary>
+        private readonly ISpoiler _spoilerContext;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SpoilersController"/> class.
+        /// </summary>
+        /// <param name="context">The context.</param>
+        /// <param name="movieContext">The movie context.</param>
+        /// <param name="spoilerContext">The spoiler context.</param>
+        public SpoilersController(SpoiltContext context, IMovie movieContext, ISpoiler spoilerContext)
         {
             _context = context;
             _movieContext = movieContext;
+            _spoilerContext = spoilerContext;
         }
 
         // GET: api/Spoilers
@@ -32,7 +51,7 @@ namespace SpoiltAPI.Controllers
         [HttpGet]
         public IEnumerable<Spoiler> GetSpoilers()
         {
-            return _context.Spoilers.Include(s => s.Movie);
+            return _spoilerContext.RetrieveSpoilers();
         }
 
         // GET: api/Spoilers/5
@@ -49,7 +68,7 @@ namespace SpoiltAPI.Controllers
                 return BadRequest(ModelState);
             }
 
-            var spoiler = await _context.Spoilers.Include(s => s.Movie).FirstOrDefaultAsync(s => s.ID == id);
+            var spoiler = await _spoilerContext.RetrieveSpoiler(id);
 
             if (spoiler == null)
             {
@@ -79,7 +98,7 @@ namespace SpoiltAPI.Controllers
                 return BadRequest();
             }
 
-            _context.Entry(spoiler).State = EntityState.Modified;
+            await _spoilerContext.UpdateSpoiler(id, spoiler);
 
             try
             {
@@ -120,8 +139,7 @@ namespace SpoiltAPI.Controllers
                 return BadRequest("Movie does not exist.");
             }
 
-            _context.Spoilers.Add(spoiler);
-            await _context.SaveChangesAsync();
+            await _spoilerContext.CreateSpoiler(spoiler);
 
             return CreatedAtAction("GetSpoiler", new { id = spoiler.ID }, spoiler);
         }
@@ -133,23 +151,16 @@ namespace SpoiltAPI.Controllers
         /// <param name="id">ID of a Spoiler</param>
         /// <returns>Returns OK</returns>
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteSpoiler([FromRoute] int id)
+        public IActionResult DeleteSpoiler([FromRoute] int id)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var spoiler = await _context.Spoilers.FindAsync(id);
-            if (spoiler == null)
-            {
-                return NotFound();
-            }
+            _spoilerContext.RemoveSpoiler(id);
 
-            _context.Spoilers.Remove(spoiler);
-            await _context.SaveChangesAsync();
-
-            return Ok(spoiler);
+            return Ok();
         }
 
         /// <summary>
@@ -159,7 +170,7 @@ namespace SpoiltAPI.Controllers
         /// <returns>Returns true if a Spoiler exists and false if a Spoiler does not exist</returns>
         private bool SpoilerExists(int id)
         {
-            return _context.Spoilers.Any(e => e.ID == id);
+            return _spoilerContext.CheckSpoilerExists(id);
         }
     }
 }
