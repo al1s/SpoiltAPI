@@ -20,6 +20,7 @@ namespace SpoiltAPI.Controllers
         /// The context
         /// </summary>
         private readonly SpoiltContext _context;
+
         /// <summary>
         /// The movie context
         /// </summary>
@@ -44,7 +45,7 @@ namespace SpoiltAPI.Controllers
         [HttpGet]
         public IEnumerable<Movie> GetMovies()
         {
-            return _context.Movies;
+            return _movieContext.RetrieveMovies();
         }
 
         // GET: api/Movies/5        
@@ -84,7 +85,7 @@ namespace SpoiltAPI.Controllers
         /// <returns>Returns true if Movie exists</returns>
         private bool MovieExists(string id)
         {
-            return _context.Movies.Any(e => e.ID == id);
+            return _movieContext.CheckMovieExists(id);
         }
     }
 }

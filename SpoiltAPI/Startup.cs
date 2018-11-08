@@ -46,6 +46,7 @@ namespace SpoiltAPI
              );
 
             services.AddTransient<IMovie, MovieService>();
+            services.AddTransient<ISpoiler, SpoilerService>();
             services.AddResponseCaching();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1).AddJsonOptions(options => {
