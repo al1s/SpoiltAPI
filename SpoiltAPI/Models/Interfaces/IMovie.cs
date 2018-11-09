@@ -19,7 +19,7 @@ namespace SpoiltAPI.Models.Interfaces
         /// Retrieves the movies.
         /// </summary>
         /// <returns>Returns a list of Movies</returns>
-        IEnumerable<Movie> RetrieveMovies();
+        IEnumerable<Movie> RetrieveMovies(int pageNumber = 1, int pageSize = 20);
 
         /// <summary>
         /// Gets the movie external.
