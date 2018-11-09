@@ -22,7 +22,7 @@ namespace SpoiltAPI.Models.ViewModels
         /// <value>
         /// The search.
         /// </value>
-        public IEnumerable<MovieSearchDescription> Search { get; set; }
+        public IEnumerable<MovieDescription> Search { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether this <see cref="OMDBSearchResponse"/> is response.

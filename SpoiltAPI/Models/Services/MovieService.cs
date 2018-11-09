@@ -52,11 +52,26 @@ namespace SpoiltAPI.Models.Services
                     response.EnsureSuccessStatusCode();
                     var stringResult = await response.Content.ReadAsStringAsync();
                     var rawMovies = JsonConvert.DeserializeObject<OMDBSearchResponse>(stringResult);
+                    await UpdateMovieData(rawMovies);
+
                     return rawMovies;
                 }
                 catch (HttpRequestException)
                 {
                     return new OMDBSearchResponse();
+                }
+            }
+        }
+
+        private async Task UpdateMovieData(OMDBSearchResponse sr)
+        {
+            foreach (var item in sr.Search)
+            {
+                var movie = await GetMovieOrCreate(item.ImdbID,false);
+                if(movie != null)
+                {
+                    item.Plot = movie.Plot;
+                    item.Genre = movie.Genre;
                 }
             }
         }
