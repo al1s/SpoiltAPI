@@ -31,9 +31,10 @@ namespace SpoiltAPI.Models.Services
         /// Retrieves the movies.
         /// </summary>
         /// <returns>Returns a list of Movies</returns>
-        public IEnumerable<Movie> RetrieveMovies()
+        public IEnumerable<Movie> RetrieveMovies(int pageNumber = 1, int pageSize = 15)
         {
-            return _context.Movies;
+            return _context.Movies.Skip((pageNumber - 1) * pageSize)
+            .Take(pageSize).OrderByDescending(s => s.Spoilers.Count());
         }
 
         /// <summary>

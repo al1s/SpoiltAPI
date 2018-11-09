@@ -43,9 +43,9 @@ namespace SpoiltAPI.Controllers
         /// </summary>
         /// <returns>Returns Movies</returns>
         [HttpGet]
-        public IEnumerable<Movie> GetMovies()
+        public IEnumerable<Movie> GetMovies(int pageNumber = 1, int pageSize = 15)
         {
-            return _movieContext.RetrieveMovies();
+            return _movieContext.RetrieveMovies(pageNumber, pageSize);
         }
 
         // GET: api/Movies/5        
