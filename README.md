@@ -10,9 +10,9 @@ The API uses data from the OMDB api.
 
 * [API Calls](#api-calls)
 * [Database](#database)
-* [Tools Used](#Tools Used)
+* [Tools Used](#tools-used)
 * [Documentation](#documentation)
-* [Contributors](#Contributors)
+* [Contributors](#contributors)
 * [License](#license)
 
 
