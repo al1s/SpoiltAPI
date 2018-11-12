@@ -7,6 +7,8 @@ The API uses data from the [OMDB api](http://www.omdbapi.com/).
 
 To build a service that needs access to movies data and/or movie spoilers, as well as the ability to add new spoilers.
 
+[Sample Integrated Dataflow](https://drive.google.com/file/d/1IFFtjAH4dUni1PaxVeMAQhD2gnpLQGjW/view)
+
 ### Deployed
 [http://spoiltapi.azurewebsites.net](http://spoiltapi.azurewebsites.net)
 
