@@ -229,3 +229,6 @@ Documentation is provided by Swagger, and is available in the deployed website, 
 
 ## License
 [MIT](SpoiltAPI/LICENSE)
+
+## Credits
+Thanks to OMDB for use of their API for movie data.
