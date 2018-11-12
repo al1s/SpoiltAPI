@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SpoiltAPI.Data;
 
 namespace SpoiltAPI.Migrations
 {
     [DbContext(typeof(SpoiltContext))]
-    partial class SpoiltContextModelSnapshot : ModelSnapshot
+    [Migration("20181109175743_ChangeYearToString")]
+    partial class ChangeYearToString
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -50,7 +52,7 @@ namespace SpoiltAPI.Migrations
 
                     b.Property<DateTime>("Created")
                         .ValueGeneratedOnAdd()
-                        .HasDefaultValueSql("getutcdate()");
+                        .HasDefaultValueSql("getdate()");
 
                     b.Property<string>("MovieID");
 
