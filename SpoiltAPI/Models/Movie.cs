@@ -36,7 +36,7 @@ namespace SpoiltAPI.Models
         /// <value>
         /// The year.
         /// </value>
-        public int Year { get; set; }
+        public string Year { get; set; }
 
         /// <summary>
         /// Gets or sets the genre.

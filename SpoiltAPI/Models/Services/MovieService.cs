@@ -33,8 +33,8 @@ namespace SpoiltAPI.Models.Services
         /// <returns>Returns a list of Movies</returns>
         public IEnumerable<Movie> RetrieveMovies(int pageNumber = 1, int pageSize = 15)
         {
-            return _context.Movies.Skip((pageNumber - 1) * pageSize)
-            .Take(pageSize).OrderByDescending(s => s.Spoilers.Count());
+            return _context.Movies.OrderByDescending(s => s.Spoilers.Count()).Skip((pageNumber - 1) * pageSize)
+            .Take(pageSize);
         }
 
         /// <summary>
@@ -119,7 +119,8 @@ namespace SpoiltAPI.Models.Services
 
                 if (mDescripton != null)
                 {
-                    movie = new Movie { ID = mDescripton.ImdbID, Title = mDescripton.Title, Genre = mDescripton.Genre, Plot = mDescripton.Plot, Year = int.Parse(mDescripton.Year), Poster = mDescripton.Poster };
+
+                    movie = new Movie { ID = mDescripton.ImdbID, Title = mDescripton.Title, Genre = mDescripton.Genre, Plot = mDescripton.Plot, Year = mDescripton.Year, Poster = mDescripton.Poster };
                     _context.Movies.Add(movie);
                     await _context.SaveChangesAsync();
                 }

@@ -41,14 +41,14 @@ namespace SpoiltAPI.Data
             // Auto populate date.
             modelBuilder.Entity<Spoiler>()
             .Property(b => b.Created)
-            .HasDefaultValueSql("getdate()");
+            .HasDefaultValueSql("getutcdate()");
 
             // Seed data.
             modelBuilder.Entity<Movie>().HasData(
                 new Movie
                 {
                     Title = "The Sixth Sense",
-                    Year = 1999,
+                    Year = "1999",
                     Genre = "Drama, Thriller, Mystery",
                     Plot = "A boy who communicates with spirits seeks the help of a disheartened child psychologist.",
                     Poster = "https://m.media-amazon.com/images/M/MV5BMWM4NTFhYjctNzUyNi00NGMwLTk3NTYtMDIyNTZmMzRlYmQyXkEyXkFqcGdeQXVyMTAwMzUyOTc@._V1_SX300.jpg",
