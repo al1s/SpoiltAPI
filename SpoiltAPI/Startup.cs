@@ -79,6 +79,7 @@ namespace SpoiltAPI
             app.UseSwaggerUi3WithApiExplorer(settings =>
             {
                 settings.SwaggerUiRoute = "";
+                
                 settings.GeneratorSettings.DefaultPropertyNameHandling =
                     PropertyNameHandling.CamelCase;
                 settings.PostProcess = document =>
@@ -87,7 +88,7 @@ namespace SpoiltAPI
                     document.Info.Title = "Spoilt API";
                     document.Info.Description = "A simple api for Movie Spoilers.";
                     document.Info.TermsOfService = "None";
-                    
+                    document.Schemes.Add(NSwag.SwaggerSchema.Https);
                 };
             });
 
