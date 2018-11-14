@@ -64,6 +64,12 @@ namespace SpoiltAPI.Models.Services
             }
         }
 
+
+        /// <summary>
+        /// Updates the movie data.
+        /// </summary>
+        /// <param name="sr">The sr.</param>
+        /// <returns></returns>
         private async Task UpdateMovieData(OMDBSearchResponse sr)
         {
             foreach (var item in sr.Search)
